@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'"
+    />
+    <title>MikroDesk — Console MikroTik</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16 5.6a3 3 0 0 1 0 5.8"/><path d="M17.6 14.9c1.8.6 3 2.3 3 4.6"/></symbol>
+        <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 8.5a15 15 0 0 1 19 0"/><path d="M5.5 12a10.5 10.5 0 0 1 13 0"/><path d="M8.5 15.5a6 6 0 0 1 7 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 9V6.5A1.5 1.5 0 0 1 4.5 5h15A1.5 1.5 0 0 1 21 6.5V9a3 3 0 0 0 0 6v2.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5V15a3 3 0 0 0 0-6Z"/><path d="M14 5v2M14 11v2M14 17v2" stroke-dasharray="1.5 2.4"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 8.5 4.6L12 12.2 3.5 7.6Z"/><path d="m3.5 12 8.5 4.6 8.5-4.6"/><path d="m3.5 16.4 8.5 4.6 8.5-4.6"/></symbol>
+        <symbol id="i-ppp" viewBox="0 0 24 24"><path d="M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7"/><rect x="4" y="7" width="16" height="13" rx="3"/><path d="M8 12h2M14 12h2M8 16h2M14 16h2"/></symbol>
+        <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5"/><path d="M6.5 8h11v3.5a5.5 5.5 0 0 1-11 0Z"/><path d="M12 17v4"/></symbol>
+        <symbol id="i-logs" viewBox="0 0 24 24"><path d="M6 3.5h9L20 8v12.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M14.5 3.6V8.5H20"/><path d="M8.5 13h7M8.5 16.5h5M8.5 9.5h2.5"/></symbol>
+        <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7 9 3 3-3 3M12.5 15h4.5"/></symbol>
+        <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 14.6a1.5 1.5 0 0 0 .3 1.7l.1.1a1.8 1.8 0 1 1-2.6 2.6l-.1-.1a1.5 1.5 0 0 0-1.7-.3 1.5 1.5 0 0 0-.9 1.4v.2a1.8 1.8 0 1 1-3.6 0V20a1.5 1.5 0 0 0-1-1.4 1.5 1.5 0 0 0-1.6.3l-.1.1a1.8 1.8 0 1 1-2.6-2.6l.1-.1a1.5 1.5 0 0 0 .3-1.7 1.5 1.5 0 0 0-1.4-.9H3.4a1.8 1.8 0 1 1 0-3.6h.2a1.5 1.5 0 0 0 1.4-1 1.5 1.5 0 0 0-.3-1.6l-.1-.1a1.8 1.8 0 1 1 2.6-2.6l.1.1a1.5 1.5 0 0 0 1.7.3h.1a1.5 1.5 0 0 0 .9-1.4V3.4a1.8 1.8 0 1 1 3.6 0v.2a1.5 1.5 0 0 0 .9 1.4 1.5 1.5 0 0 0 1.7-.3l.1-.1a1.8 1.8 0 1 1 2.6 2.6l-.1.1a1.5 1.5 0 0 0-.3 1.7v.1a1.5 1.5 0 0 0 1.4.9h.2a1.8 1.8 0 1 1 0 3.6H20a1.5 1.5 0 0 0-1.4.9Z"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 4.5V11h-6.5"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+        <symbol id="i-min" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+        <symbol id="i-max" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol>
+        <symbol id="i-restore" viewBox="0 0 24 24"><rect x="4.5" y="7.5" width="11" height="11" rx="2"/><path d="M8.5 7.5V6a1.5 1.5 0 0 1 1.5-1.5h8A1.5 1.5 0 0 1 19.5 6v8a1.5 1.5 0 0 1-1.5 1.5h-1.5"/></symbol>
+        <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M7 6.2a8 8 0 1 0 10 0"/></symbol>
+        <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4.5L20 8.5a2.1 2.1 0 0 0-3-3L5.5 17Z"/><path d="m14.5 7 2.5 2.5"/></symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+        <symbol id="i-kick" viewBox="0 0 24 24"><path d="M15 4h3.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M10 8 6 12l4 4M6 12h9"/></symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-7A2.5 2.5 0 0 0 3 5.5v7A2.5 2.5 0 0 0 5.5 15"/></symbol>
+        <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="2"/><path d="M7 14h10v6.5H7Z"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7.5 10 4.5 4.5L16.5 10"/><path d="M4 20.5h16"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></symbol>
+        <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5 21 20H3Z"/><path d="M12 9v4.5M12 16.5v.5"/></symbol>
+        <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10 19a2 2 0 0 0 4 0"/></symbol>
+        <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5V8"/></symbol>
+        <symbol id="i-router" viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="8" rx="2"/><path d="M7 16h.01M10.5 16h.01M14 16h.01"/><path d="M8 12V8.5M8 8.5 5.5 6M8 8.5 10.5 6M16 12V6.5M16 6.5 13.5 4M16 6.5 18.5 4"/></symbol>
+        <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9.5 3v3M14.5 3v3M9.5 18v3M14.5 18v3M3 9.5h3M3 14.5h3M18 9.5h3M18 14.5h3"/></symbol>
+        <symbol id="i-ram" viewBox="0 0 24 24"><path d="M3 8h18v8.5H3Z"/><path d="M7 16.5V20M12 16.5V20M17 16.5V20"/><path d="M6.5 11.5h4M13.5 11.5h4"/></symbol>
+        <symbol id="i-disk" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+        <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15"/><path d="m6 13.5 6 6 6-6"/></symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5"/><path d="m6 10.5 6-6 6 6"/></symbol>
+        <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+        <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M9.6 5.9A9.5 9.5 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-3.3 4.1"/><path d="M6.3 7.8A17.4 17.4 0 0 0 2.5 12S6 18.5 12 18.5a9.4 9.4 0 0 0 3.8-.8"/><path d="M10.1 10.2a2.8 2.8 0 0 0 3.8 3.9"/></symbol>
+        <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3.5h11L20.5 8v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 20V5A1.5 1.5 0 0 1 5 3.5Z"/><path d="M7.5 3.5v5h8v-5"/><rect x="7.5" y="13" width="9" height="7"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l2.8-2.8a4.5 4.5 0 0 0-6.4-6.4L11.3 6.3"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-2.8 2.8a4.5 4.5 0 0 0 6.4 6.4l1.5-1.5"/></symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 4.5-3.3 7.7-8 9-4.7-1.3-8-4.5-8-9V6Z"/><path d="m8.5 12 2.5 2.5 4.5-4.5"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2"/></symbol>
+        <symbol id="i-temp" viewBox="0 0 24 24"><path d="M14 14.3V5.5a2 2 0 0 0-4 0v8.8a4.5 4.5 0 1 0 4 0Z"/><path d="M12 9v6.5"/></symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14"/><path d="M9 8l-4 4 4 4M5 12h10"/></symbol>
+        <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="8" r="4"/><path d="m11 11 9 9"/><path d="m16.5 16.5 2-2M14 14l2-2"/></symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.4 14.4A8.6 8.6 0 0 1 9.6 3.6a8.7 8.7 0 1 0 10.8 10.8Z"/></symbol>
+        <symbol id="i-theme-dark" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 8.5h18"/><path d="M7 6.2h.01M10 6.2h.01"/><path d="M12 12.5a2.6 2.6 0 1 0 3.4 3.4 3.2 3.2 0 0 1-3.4-3.4Z"/></symbol>
+        <symbol id="i-theme-light" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 8.5h18"/><path d="M7 6.2h.01M10 6.2h.01"/><circle cx="12" cy="14.3" r="2.2"/><path d="M12 10.6v.6M12 17.4v.6M8.3 14.3h.6M15.1 14.3h.6"/></symbol>
+      </defs>
+    </svg>
+
+    <!-- ====================== BARRE DE TITRE ====================== -->
+    <header class="titlebar" id="titlebar">
+      <div class="titlebar-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M16 3 29 10.5v11L16 29 3 21.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 9.5 23 13.5v6L16 23.5 9 19.5v-6Z" fill="currentColor" opacity=".22"/><circle cx="16" cy="16" r="3" fill="currentColor"/></svg>
+        </span>
+        <span class="brand-name">Mikro<strong>Desk</strong></span>
+        <span class="brand-tag">CONSOLE MIKROTIK</span>
+      </div>
+
+      <div class="titlebar-center">
+        <span class="conn-pill" id="titlebar-conn" data-state="off">
+          <span class="dot"></span>
+          <span id="titlebar-conn-label">Hors ligne</span>
+        </span>
+      </div>
+
+      <div class="titlebar-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" title="Passer au thème clair" aria-label="Passer au thème clair">
+          <svg><use href="#i-sun"/></svg>
+        </button>
+        <div class="winbtn-group">
+          <button class="winbtn" id="win-min" title="Réduire" aria-label="Réduire">
+            <svg><use href="#i-min"/></svg>
+          </button>
+          <button class="winbtn" id="win-max" title="Agrandir" aria-label="Agrandir">
+            <svg><use href="#i-max"/></svg>
+          </button>
+          <button class="winbtn winbtn-close" id="win-close" title="Fermer" aria-label="Fermer">
+            <svg><use href="#i-close"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====================== ÉCRAN DE CONNEXION ====================== -->
+    <main class="connect" id="view-connect">
+      <div class="connect-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-plane"></div>
+        <div class="scanline"></div>
+      </div>
+
+      <section class="connect-left">
+        <div class="connect-hero">
+          <span class="eyebrow"><svg><use href="#i-spark"/></svg> Console d'administration</span>
+          <h1>Votre réseau MikroTik,<br /><span class="grad-text">piloté en direct.</span></h1>
+          <p>
+            Hotspot, vouchers, PPP, interfaces et supervision temps réel — une seule
+            interface, rapide et lisible, connectée à l'API RouterOS.
+          </p>
+
+          <ul class="feature-list">
+            <li>
+              <span class="feature-ico"><svg><use href="#i-ticket"/></svg></span>
+              <div><strong>Vouchers imprimables</strong><span>Génération par lot, export CSV et impression.</span></div>
+            </li>
+            <li>
+              <span class="feature-ico"><svg><use href="#i-wifi"/></svg></span>
+              <div><strong>Hotspot & sessions</strong><span>Utilisateurs, profils, sessions actives en un clic.</span></div>
+            </li>
+            <li>
+              <span class="feature-ico"><svg><use href="#i-shield"/></svg></span>
+              <div><strong>Identifiants chiffrés</strong><span>Mots de passe protégés par le coffre de Windows.</span></div>
+            </li>
+          </ul>
+
+          <div class="connect-metrics">
+            <div><strong>8</strong><span>écrans de gestion</span></div>
+            <div><strong>2</strong><span>modes API (8728 / 8729)</span></div>
+            <div><strong>1 s</strong><span>supervision actualisée</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="connect-right">
+        <div class="connect-card glass">
+          <div class="card-head">
+            <div>
+              <h2>Connexion au routeur</h2>
+              <p>API RouterOS — ports 8728 (api) ou 8729 (api-ssl)</p>
+            </div>
+            <span class="mode-badge" id="connect-mode-badge">LIVE</span>
+          </div>
+
+          <div class="segmented" role="tablist" aria-label="Mode de connexion">
+            <button class="segmented-item is-active" data-connect-mode="live" role="tab" aria-selected="true">
+              <svg><use href="#i-router"/></svg> Routeur réel
+            </button>
+            <button class="segmented-item" data-connect-mode="demo" role="tab" aria-selected="false">
+              <svg><use href="#i-spark"/></svg> Mode démo
+            </button>
+          </div>
+
+          <div class="demo-banner" id="demo-banner" hidden>
+            <svg><use href="#i-info"/></svg>
+            <div>
+              <strong>Routeur simulé</strong>
+              <span>Explorez toutes les fonctions sans matériel. Les données sont fictives.</span>
+            </div>
+          </div>
+
+          <form id="connect-form" autocomplete="off">
+            <div class="profile-strip" id="profile-strip" hidden>
+              <label class="field-label">Profils enregistrés</label>
+              <div class="profile-chips" id="profile-chips"></div>
+            </div>
+
+            <div class="form-grid">
+              <label class="field field-full">
+                <span class="field-label">Adresse du routeur</span>
+                <span class="input-wrap">
+                  <svg class="input-ico"><use href="#i-router"/></svg>
+                  <input type="text" id="conn-host" name="host" placeholder="192.168.88.1" spellcheck="false" />
+                </span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Utilisateur API</span>
+                <span class="input-wrap">
+                  <svg class="input-ico"><use href="#i-users"/></svg>
+                  <input type="text" id="conn-username" name="username" placeholder="admin" spellcheck="false" />
+                </span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Mot de passe</span>
+                <span class="input-wrap">
+                  <svg class="input-ico"><use href="#i-key"/></svg>
+                  <input type="password" id="conn-password" name="password" placeholder="••••••••" />
+                  <button type="button" class="input-action" id="toggle-password" title="Afficher / masquer" aria-label="Afficher le mot de passe">
+                    <svg><use href="#i-eye"/></svg>
+                  </button>
+                </span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Port API</span>
+                <span class="input-wrap">
+                  <svg class="input-ico"><use href="#i-plug"/></svg>
+                  <input type="number" id="conn-port" name="port" value="8728" min="1" max="65535" />
+                </span>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Sécurité</span>
+                <span class="switch-row">
+                  <span class="switch">
+                    <input type="checkbox" id="conn-tls" name="tls" />
+                    <span class="switch-track"></span>
+                  </span>
+                  <span class="switch-text">API SSL (port 8729)</span>
+                </span>
+              </label>
+
+              <label class="field field-full">
+                <span class="field-label">Nom du profil <span class="opt">(optionnel)</span></span>
+                <span class="input-wrap">
+                  <svg class="input-ico"><use href="#i-save"/></svg>
+                  <input type="text" id="conn-profile-name" name="profileName" placeholder="Bureau principal" />
+                </span>
+              </label>
+            </div>
+
+            <label class="checkline">
+              <input type="checkbox" id="conn-remember" checked />
+              <span class="check-box"><svg><use href="#i-check"/></svg></span>
+              <span>Enregistrer ce routeur et chiffrer le mot de passe</span>
+            </label>
+
+            <div class="connect-error" id="connect-error" hidden>
+              <svg><use href="#i-alert"/></svg>
+              <span id="connect-error-text"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-connect" id="connect-submit">
+              <span class="btn-spinner" aria-hidden="true"></span>
+              <svg class="btn-ico"><use href="#i-link"/></svg>
+              <span class="btn-label">Se connecter</span>
+            </button>
+
+            <p class="connect-hint">
+              Activez l'API sur le routeur : <code>IP &rsaquo; Services &rsaquo; api</code>.
+              L'utilisateur doit disposer des droits <code>read</code>, <code>write</code> et <code>api</code>.
+            </p>
+          </form>
+        </div>
+
+        <p class="connect-legal">MikroDesk n'envoie aucune donnée vers Internet. Tout reste sur votre poste.</p>
+      </section>
+    </main>
+
+    <!-- ====================== APPLICATION ====================== -->
+    <div class="app" id="view-app" hidden>
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+          <div class="sidebar-status" id="sidebar-status">
+            <span class="status-orb"></span>
+            <div class="sidebar-status-text">
+              <strong id="sidebar-identity">—</strong>
+              <span id="sidebar-sub">Déconnecté</span>
+            </div>
+            <button class="icon-btn tiny" id="sidebar-disconnect" title="Se déconnecter" aria-label="Se déconnecter">
+              <svg><use href="#i-logout"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <nav class="nav" id="nav">
+          <div class="nav-group-label">Supervision</div>
+          <button class="nav-item is-active" data-screen="dashboard">
+            <svg><use href="#i-dashboard"/></svg><span>Tableau de bord</span>
+          </button>
+          <button class="nav-item" data-screen="fleet">
+            <svg><use href="#i-router"/></svg><span>Parc routeurs</span><em class="nav-count" id="nav-count-fleet">0</em>
+          </button>
+
+          <div class="nav-group-label">Hotspot</div>
+          <button class="nav-item" data-screen="hotspot-users">
+            <svg><use href="#i-users"/></svg><span>Utilisateurs</span><em class="nav-count" id="nav-count-users">0</em>
+          </button>
+          <button class="nav-item" data-screen="hotspot-active">
+            <svg><use href="#i-wifi"/></svg><span>Sessions actives</span><em class="nav-count" id="nav-count-active">0</em>
+          </button>
+          <button class="nav-item" data-screen="hotspot-hosts">
+            <svg><use href="#i-router"/></svg><span>Hôtes</span><em class="nav-count" id="nav-count-hosts">0</em>
+          </button>
+          <button class="nav-item" data-screen="hotspot-bindings">
+            <svg><use href="#i-shield"/></svg><span>Liaisons IP</span>
+          </button>
+          <button class="nav-item" data-screen="hotspot-cookies">
+            <svg><use href="#i-key"/></svg><span>Cookies</span>
+          </button>
+          <button class="nav-item" data-screen="hotspot-profiles">
+            <svg><use href="#i-layers"/></svg><span>Profils</span>
+          </button>
+          <button class="nav-item" data-screen="vouchers">
+            <svg><use href="#i-ticket"/></svg><span>Vouchers</span>
+          </button>
+          <button class="nav-item" data-screen="quick-print">
+            <svg><use href="#i-print"/></svg><span>Impression rapide</span>
+          </button>
+
+          <div class="nav-group-label">PPP</div>
+          <button class="nav-item" data-screen="ppp-secrets">
+            <svg><use href="#i-key"/></svg><span>Secrets</span><em class="nav-count" id="nav-count-ppp">0</em>
+          </button>
+          <button class="nav-item" data-screen="ppp-active">
+            <svg><use href="#i-ppp"/></svg><span>Sessions PPP</span>
+          </button>
+
+          <div class="nav-group-label">Système</div>
+          <button class="nav-item" data-screen="interfaces">
+            <svg><use href="#i-plug"/></svg><span>Interfaces</span>
+          </button>
+          <button class="nav-item" data-screen="firewall">
+            <svg><use href="#i-shield"/></svg><span>Pare-feu & réseau</span>
+          </button>
+          <button class="nav-item" data-screen="dhcp">
+            <svg><use href="#i-link"/></svg><span>Baux DHCP</span>
+          </button>
+          <button class="nav-item" data-screen="traffic">
+            <svg><use href="#i-spark"/></svg><span>Moniteur de trafic</span>
+          </button>
+          <button class="nav-item" data-screen="report">
+            <svg><use href="#i-logs"/></svg><span>Rapport</span>
+          </button>
+          <button class="nav-item" data-screen="logs">
+            <svg><use href="#i-logs"/></svg><span>Journaux</span>
+          </button>
+          <button class="nav-item" data-screen="terminal">
+            <svg><use href="#i-terminal"/></svg><span>Terminal</span>
+          </button>
+
+          <div class="nav-group-label">Outils réseau</div>
+          <button class="nav-item" data-screen="diagnostic">
+            <svg><use href="#i-spark"/></svg><span>Diagnostic</span>
+          </button>
+          <button class="nav-item" data-screen="security">
+            <svg><use href="#i-shield"/></svg><span>Audit sécurité</span>
+          </button>
+          <button class="nav-item" data-screen="alerts">
+            <svg><use href="#i-bell"/></svg><span>Alertes</span><em class="nav-count" id="nav-alert-count">0</em>
+          </button>
+          <button class="nav-item" data-screen="backups">
+            <svg><use href="#i-save"/></svg><span>Sauvegardes</span>
+          </button>
+          <button class="nav-item" data-screen="audit">
+            <svg><use href="#i-logs"/></svg><span>Journal d'audit</span>
+          </button>
+
+          <button class="nav-item" data-screen="settings">
+            <svg><use href="#i-settings"/></svg><span>Paramètres</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-foot">
+          <div class="sidebar-version">
+            <span id="sidebar-version-label">MikroDesk 1.1.0</span>
+            <span class="live-dot" id="sidebar-live" title="Synchronisation"></span>
+          </div>
+          <div class="sidebar-meter" title="Charge CPU">
+            <span class="meter-label">CPU</span>
+            <span class="meter"><i id="sidebar-cpu-bar" style="width: 0%"></i></span>
+            <span class="meter-value" id="sidebar-cpu-value">—</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-btn drawer-btn" id="drawer-btn" aria-label="Menu">
+              <svg><use href="#i-menu"/></svg>
+            </button>
+            <div class="page-title">
+              <h1 id="page-title">Tableau de bord</h1>
+              <p id="page-subtitle">Vue d'ensemble du routeur</p>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <span class="sync-pill" id="sync-pill" data-state="idle">
+              <span class="sync-dot"></span>
+              <span id="sync-text">Synchronisé</span>
+            </span>
+            <button class="icon-btn alert-bell" id="alerts-bell" title="Alertes" aria-label="Alertes">
+              <svg><use href="#i-bell"/></svg>
+              <span class="alert-badge" id="alerts-badge" hidden>0</span>
+            </button>
+            <button class="icon-btn" id="topbar-refresh" title="Actualiser" aria-label="Actualiser">
+              <svg><use href="#i-refresh"/></svg>
+            </button>
+            <span class="topbar-sep"></span>
+            <div class="topbar-router">
+              <span class="router-avatar" id="router-avatar">MK</span>
+              <div class="router-meta">
+                <strong id="router-name">—</strong>
+                <span id="router-addr">—</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content" id="content">
+          <!-- ---------- TABLEAU DE BORD ---------- -->
+          <section class="screen is-active" id="screen-dashboard">
+            <div class="hero-card glass" id="dashboard-hero">
+              <div class="hero-info">
+                <span class="eyebrow"><span class="live-badge"><i></i> En direct</span> <span id="hero-mode">API RouterOS</span></span>
+                <h2 id="hero-identity">Routeur</h2>
+                <p id="hero-model">—</p>
+                <div class="hero-tags">
+                  <span class="tag" id="hero-version">RouterOS —</span>
+                  <span class="tag" id="hero-uptime"><svg><use href="#i-clock"/></svg> —</span>
+                  <span class="tag" id="hero-board"><svg><use href="#i-router"/></svg> —</span>
+                  <span class="tag tag-clock" id="hero-clock"><svg><use href="#i-clock"/></svg> —</span>
+                </div>
+              </div>
+              <div class="hero-gauges">
+                <div class="gauge" data-gauge="cpu">
+                  <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="50"/><circle class="gauge-value" cx="60" cy="60" r="50"/></svg>
+                  <div class="gauge-center"><strong id="gauge-cpu">0<span>%</span></strong><small>CPU</small></div>
+                </div>
+                <div class="gauge" data-gauge="ram">
+                  <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="50"/><circle class="gauge-value" cx="60" cy="60" r="50"/></svg>
+                  <div class="gauge-center"><strong id="gauge-ram">0<span>%</span></strong><small>RAM</small></div>
+                </div>
+                <div class="gauge" data-gauge="disk">
+                  <svg viewBox="0 0 120 120"><circle class="gauge-track" cx="60" cy="60" r="50"/><circle class="gauge-value" cx="60" cy="60" r="50"/></svg>
+                  <div class="gauge-center"><strong id="gauge-disk">0<span>%</span></strong><small>Disque</small></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <article class="stat-card glass" data-tone="down">
+                <div class="stat-ico"><svg><use href="#i-arrow-down"/></svg></div>
+                <div class="stat-body"><span>Débit descendant</span><strong id="stat-rx">0 o/s</strong><small id="stat-rx-total">0 o reçus</small></div>
+                <div class="stat-spark"><canvas id="spark-rx" width="120" height="44"></canvas></div>
+              </article>
+              <article class="stat-card glass" data-tone="up">
+                <div class="stat-ico"><svg><use href="#i-arrow-up"/></svg></div>
+                <div class="stat-body"><span>Débit montant</span><strong id="stat-tx">0 o/s</strong><small id="stat-tx-total">0 o envoyés</small></div>
+                <div class="stat-spark"><canvas id="spark-tx" width="120" height="44"></canvas></div>
+              </article>
+              <article class="stat-card glass" data-tone="hotspot">
+                <div class="stat-ico"><svg><use href="#i-wifi"/></svg></div>
+                <div class="stat-body"><span>Sessions hotspot</span><strong id="stat-active">0</strong><small><b id="stat-users">0</b> utilisateurs configurés</small></div>
+              </article>
+              <article class="stat-card glass" data-tone="ppp">
+                <div class="stat-ico"><svg><use href="#i-ppp"/></svg></div>
+                <div class="stat-body"><span>Sessions PPP</span><strong id="stat-ppp">0</strong><small><b id="stat-ppp-secrets">0</b> secrets enregistrés</small></div>
+              </article>
+            </div>
+
+            <div class="dash-grid">
+              <article class="panel glass span-2">
+                <header class="panel-head">
+                  <div>
+                    <h3>Trafic du routeur</h3>
+                    <p>Débit agrégé de toutes les interfaces actives</p>
+                  </div>
+                  <div class="panel-legend">
+                    <select class="select select-mini" id="chart-iface" aria-label="Interface du graphique">
+                      <option value="">Toutes les interfaces</option>
+                    </select>
+                    <span class="legend-dot down"></span> Descendant
+                    <span class="legend-dot up"></span> Montant
+                    <span class="chart-range" id="chart-range">60 s</span>
+                  </div>
+                </header>
+                <div class="chart-wrap">
+                  <canvas id="traffic-chart" height="240"></canvas>
+                  <div class="chart-empty" id="chart-empty" hidden>Aucune donnée de trafic</div>
+                </div>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head">
+                  <div><h3>Ressources</h3><p>État matériel</p></div>
+                  <span class="panel-badge" id="resources-temp">—</span>
+                </header>
+                <div class="resource-list">
+                  <div class="resource-row">
+                    <span class="resource-ico"><svg><use href="#i-cpu"/></svg></span>
+                    <div class="resource-info"><span>Processeur</span><small id="res-cpu-sub">—</small></div>
+                    <div class="resource-bar"><i id="res-cpu-bar" style="width: 0%"></i></div>
+                    <strong id="res-cpu">—</strong>
+                  </div>
+                  <div class="resource-row">
+                    <span class="resource-ico"><svg><use href="#i-ram"/></svg></span>
+                    <div class="resource-info"><span>Mémoire</span><small id="res-ram-sub">—</small></div>
+                    <div class="resource-bar"><i id="res-ram-bar" style="width: 0%"></i></div>
+                    <strong id="res-ram">—</strong>
+                  </div>
+                  <div class="resource-row">
+                    <span class="resource-ico"><svg><use href="#i-disk"/></svg></span>
+                    <div class="resource-info"><span>Stockage</span><small id="res-disk-sub">—</small></div>
+                    <div class="resource-bar"><i id="res-disk-bar" style="width: 0%"></i></div>
+                    <strong id="res-disk">—</strong>
+                  </div>
+                  <div class="resource-row">
+                    <span class="resource-ico"><svg><use href="#i-temp"/></svg></span>
+                    <div class="resource-info"><span>Température</span><small id="res-temp-sub">Capteur</small></div>
+                    <div class="resource-bar"><i id="res-temp-bar" style="width: 0%"></i></div>
+                    <strong id="res-temp">—</strong>
+                  </div>
+                </div>
+              </article>
+
+              <article class="panel glass span-2">
+                <header class="panel-head">
+                  <div><h3>Interfaces</h3><p>Trafic instantané par port</p></div>
+                  <button class="link-btn" data-goto="interfaces">Tout gérer <svg><use href="#i-chevron"/></svg></button>
+                </header>
+                <div class="iface-strip" id="dash-interfaces"></div>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head">
+                  <div><h3>Activité récente</h3><p>Derniers événements</p></div>
+                  <button class="link-btn" data-goto="logs">Journaux <svg><use href="#i-chevron"/></svg></button>
+                </header>
+                <ul class="timeline" id="dash-logs"></ul>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- UTILISATEURS HOTSPOT ---------- -->
+          <section class="screen" id="screen-hotspot-users">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs" id="hotspot-tabs">
+                <button class="toolbar-tab is-active" data-goto="hotspot-users">Utilisateurs</button>
+                <button class="toolbar-tab" data-goto="hotspot-active">Sessions</button>
+                <button class="toolbar-tab" data-goto="hotspot-profiles">Profils</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="users-search" placeholder="Rechercher un utilisateur…" />
+                </div>
+                <select class="select" id="users-filter-profile" aria-label="Filtrer par profil">
+                  <option value="">Tous les profils</option>
+                </select>
+                <select class="select" id="users-filter-state" aria-label="Filtrer par état">
+                  <option value="">Tous les états</option>
+                  <option value="active">Actifs</option>
+                  <option value="disabled">Désactivés</option>
+                </select>
+                <button class="btn btn-ghost" id="users-generate-btn"><svg><use href="#i-spark"/></svg> Générer</button>
+                <button class="btn btn-ghost" id="users-vouchers-btn"><svg><use href="#i-ticket"/></svg> Vouchers</button>
+                <button class="btn btn-primary" id="users-add-btn"><svg><use href="#i-plus"/></svg> Nouvel utilisateur</button>
+              </div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="users-table">
+                  <thead>
+                    <tr>
+                      <th>Utilisateur</th>
+                      <th>Mot de passe</th>
+                      <th>Profil</th>
+                      <th>Limites</th>
+                      <th>Consommation</th>
+                      <th>Commentaire</th>
+                      <th>État</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-tbody"></tbody>
+                </table>
+              </div>
+              <footer class="table-foot">
+                <span id="users-summary">0 utilisateur</span>
+                <div class="pager" id="users-pager"></div>
+              </footer>
+            </article>
+          </section>
+
+          <!-- ---------- SESSIONS HOTSPOT ---------- -->
+          <section class="screen" id="screen-hotspot-active">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-users">Utilisateurs</button>
+                <button class="toolbar-tab is-active" data-goto="hotspot-active">Sessions</button>
+                <button class="toolbar-tab" data-goto="hotspot-profiles">Profils</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="active-search" placeholder="Rechercher une session…" />
+                </div>
+                <button class="btn btn-ghost" id="active-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Sessions en cours</span><strong id="active-count">0</strong></div>
+              <div class="mini-stat glass"><span>Trafic reçu</span><strong id="active-in">0 o</strong></div>
+              <div class="mini-stat glass"><span>Trafic émis</span><strong id="active-out">0 o</strong></div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="active-table">
+                  <thead>
+                    <tr>
+                      <th>Utilisateur</th>
+                      <th>Adresse IP</th>
+                      <th>Adresse MAC</th>
+                      <th>Serveur</th>
+                      <th>Connexion</th>
+                      <th>Durée</th>
+                      <th>Reçu</th>
+                      <th>Émis</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="active-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="active-empty" hidden>
+                <svg><use href="#i-wifi"/></svg>
+                <strong>Aucune session active</strong>
+                <span>Les utilisateurs connectés au hotspot apparaîtront ici.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- HÔTES HOTSPOT ---------- -->
+          <section class="screen" id="screen-hotspot-hosts">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-users">Utilisateurs</button>
+                <button class="toolbar-tab" data-goto="hotspot-active">Sessions</button>
+                <button class="toolbar-tab is-active">Hôtes</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="hosts-search" placeholder="MAC, IP, commentaire…" />
+                </div>
+                <button class="btn btn-ghost" id="hosts-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Hôtes détectés</span><strong id="hosts-count">0</strong></div>
+              <div class="mini-stat glass"><span>Autorisés</span><strong id="hosts-authorized">0</strong></div>
+              <div class="mini-stat glass"><span>Trafic cumulé</span><strong id="hosts-traffic">0 o</strong></div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="hosts-table">
+                  <thead>
+                    <tr>
+                      <th>Adresse MAC</th>
+                      <th>Adresse IP</th>
+                      <th>Serveur</th>
+                      <th>Durée</th>
+                      <th>Reçu</th>
+                      <th>Émis</th>
+                      <th>Commentaire</th>
+                      <th>Autorisé</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="hosts-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="hosts-empty" hidden>
+                <svg><use href="#i-router"/></svg>
+                <strong>Aucun hôte hotspot</strong>
+                <span>Les appareils vus par le portail captif apparaîtront ici.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- LIAISONS IP ---------- -->
+          <section class="screen" id="screen-hotspot-bindings">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-hosts">Hôtes</button>
+                <button class="toolbar-tab is-active">Liaisons IP</button>
+                <button class="toolbar-tab" data-goto="hotspot-cookies">Cookies</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="bindings-search" placeholder="MAC, IP, commentaire…" />
+                </div>
+                <button class="btn btn-primary" id="bindings-add-btn"><svg><use href="#i-plus"/></svg> Nouvelle liaison</button>
+              </div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="bindings-table">
+                  <thead>
+                    <tr>
+                      <th>Adresse MAC</th>
+                      <th>Adresse IP</th>
+                      <th>Redirection</th>
+                      <th>Serveur</th>
+                      <th>Type</th>
+                      <th>Commentaire</th>
+                      <th>État</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bindings-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="bindings-empty" hidden>
+                <svg><use href="#i-shield"/></svg>
+                <strong>Aucune liaison IP</strong>
+                <span>Autorisez, bloquez ou redirigez un appareil par son adresse MAC.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- COOKIES HOTSPOT ---------- -->
+          <section class="screen" id="screen-hotspot-cookies">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-hosts">Hôtes</button>
+                <button class="toolbar-tab" data-goto="hotspot-bindings">Liaisons IP</button>
+                <button class="toolbar-tab is-active">Cookies</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="cookies-search" placeholder="Utilisateur, MAC, domaine…" />
+                </div>
+                <button class="btn btn-ghost" id="cookies-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="cookies-table">
+                  <thead>
+                    <tr>
+                      <th>Utilisateur</th>
+                      <th>Adresse MAC</th>
+                      <th>Domaine</th>
+                      <th>Expiration</th>
+                      <th>Commentaire</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cookies-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="cookies-empty" hidden>
+                <svg><use href="#i-key"/></svg>
+                <strong>Aucun cookie hotspot</strong>
+                <span>Les connexions mémorisées par le portail apparaîtront ici.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- PROFILS HOTSPOT ---------- -->
+          <section class="screen" id="screen-hotspot-profiles">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-users">Utilisateurs</button>
+                <button class="toolbar-tab" data-goto="hotspot-active">Sessions</button>
+                <button class="toolbar-tab is-active" data-goto="hotspot-profiles">Profils</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-ghost" id="profiles-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="profile-grid" id="profiles-grid"></div>
+            <div class="empty-state glass" id="profiles-empty" hidden>
+              <svg><use href="#i-layers"/></svg>
+              <strong>Aucun profil hotspot</strong>
+              <span>Créez des profils directement depuis RouterOS pour les voir apparaître.</span>
+            </div>
+          </section>
+
+          <!-- ---------- VOUCHERS ---------- -->
+          <section class="screen" id="screen-vouchers">
+            <div class="voucher-layout">
+              <article class="panel glass voucher-form">
+                <header class="panel-head">
+                  <div><h3>Générateur de vouchers</h3><p>Créez des accès temporaires en lot</p></div>
+                  <span class="panel-badge accent"><svg><use href="#i-ticket"/></svg> LOT</span>
+                </header>
+
+                <form id="voucher-form" class="voucher-form-body">
+                  <div class="form-grid">
+                    <label class="field">
+                      <span class="field-label">Nombre de vouchers</span>
+                      <input type="number" class="input" id="v-count" value="10" min="1" max="200" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Profil</span>
+                      <select class="select select-block" id="v-profile"></select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Durée (limit-uptime)</span>
+                      <select class="select select-block" id="v-uptime">
+                        <option value="0">Illimitée</option>
+                        <option value="1h">1 heure</option>
+                        <option value="3h">3 heures</option>
+                        <option value="12h">12 heures</option>
+                        <option value="1d" selected>1 jour</option>
+                        <option value="7d">7 jours</option>
+                        <option value="30d">30 jours</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Quota (limit-bytes-total)</span>
+                      <select class="select select-block" id="v-bytes">
+                        <option value="0">Illimité</option>
+                        <option value="500M">500 Mo</option>
+                        <option value="1G" selected>1 Go</option>
+                        <option value="2G">2 Go</option>
+                        <option value="5G">5 Go</option>
+                        <option value="10G">10 Go</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Préfixe des identifiants</span>
+                      <input type="text" class="input" id="v-prefix" placeholder="ex. vti-" maxlength="8" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Longueur identifiant / mot de passe</span>
+                      <div class="inline-inputs">
+                        <input type="number" class="input" id="v-user-length" value="5" min="3" max="12" />
+                        <input type="number" class="input" id="v-pass-length" value="4" min="3" max="12" />
+                      </div>
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Commentaire</span>
+                      <input type="text" class="input" id="v-comment" value="Voucher MikroDesk" />
+                    </label>
+                    <label class="field">
+                      <span class="field-label">Prix affiché <span class="opt">(optionnel)</span></span>
+                      <input type="text" class="input" id="v-price" placeholder="ex. 500 FCFA" />
+                    </label>
+                  </div>
+
+                  <div class="voucher-options">
+                    <label class="checkline"><input type="checkbox" id="v-show-pass" checked /><span class="check-box"><svg><use href="#i-check"/></svg></span><span>Afficher les mots de passe</span></label>
+                    <label class="checkline"><input type="checkbox" id="v-show-price" checked /><span class="check-box"><svg><use href="#i-check"/></svg></span><span>Afficher le prix</span></label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-lg" id="v-generate">
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                    <svg class="btn-ico"><use href="#i-spark"/></svg>
+                    <span class="btn-label">Générer les vouchers</span>
+                  </button>
+                </form>
+              </article>
+
+              <article class="panel glass voucher-preview">
+                <header class="panel-head">
+                  <div><h3>Aperçu</h3><p id="voucher-count-label">Aucun voucher généré</p></div>
+                  <div class="panel-actions">
+                    <button class="btn btn-ghost btn-sm" id="v-copy" disabled><svg><use href="#i-copy"/></svg> Copier</button>
+                    <button class="btn btn-ghost btn-sm" id="v-csv" disabled><svg><use href="#i-download"/></svg> CSV</button>
+                    <button class="btn btn-primary btn-sm" id="v-print" disabled><svg><use href="#i-print"/></svg> Imprimer</button>
+                  </div>
+                </header>
+                <div class="voucher-sheet" id="voucher-sheet">
+                  <div class="empty-state" id="voucher-empty">
+                    <svg><use href="#i-ticket"/></svg>
+                    <strong>Prêt à générer</strong>
+                    <span>Choisissez vos paramètres puis lancez la génération. Les tickets apparaîtront ici.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- IMPRESSION RAPIDE ---------- -->
+          <section class="screen" id="screen-quick-print">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="hotspot-users">Utilisateurs</button>
+                <button class="toolbar-tab is-active">Impression rapide</button>
+                <button class="toolbar-tab" data-goto="vouchers">Vouchers</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="qp-search" placeholder="Rechercher un utilisateur…" />
+                </div>
+                <select class="select" id="qp-filter-profile" aria-label="Filtrer par profil">
+                  <option value="">Tous les profils</option>
+                </select>
+                <button class="btn btn-ghost" id="qp-select-all"><svg><use href="#i-check"/></svg> Tout sélectionner</button>
+                <button class="btn btn-primary" id="qp-print"><svg><use href="#i-print"/></svg> Imprimer</button>
+              </div>
+            </div>
+
+            <div class="qp-banner glass">
+              <div class="qp-banner-info">
+                <svg><use href="#i-print"/></svg>
+                <div>
+                  <strong>Impression des accès existants</strong>
+                  <span>Sélectionnez les comptes à imprimer, puis lancez l'impression. Chaque ticket contient l'identifiant, le mot de passe et les limites.</span>
+                </div>
+              </div>
+              <span class="chip" id="qp-count">0 sélectionné</span>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="qp-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 36px"><input type="checkbox" id="qp-check-all" aria-label="Tout sélectionner" /></th>
+                      <th>Utilisateur</th>
+                      <th>Mot de passe</th>
+                      <th>Profil</th>
+                      <th>Limites</th>
+                      <th>Commentaire</th>
+                    </tr>
+                  </thead>
+                  <tbody id="qp-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="qp-empty" hidden>
+                <svg><use href="#i-users"/></svg>
+                <strong>Aucun utilisateur</strong>
+                <span>Créez des utilisateurs hotspot pour pouvoir les imprimer.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- SECRETS PPP ---------- -->
+          <section class="screen" id="screen-ppp-secrets">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active" data-goto="ppp-secrets">Secrets</button>
+                <button class="toolbar-tab" data-goto="ppp-active">Sessions PPP</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="ppp-search" placeholder="Rechercher un secret…" />
+                </div>
+                <button class="btn btn-primary" id="ppp-add-btn"><svg><use href="#i-plus"/></svg> Nouveau secret</button>
+              </div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="ppp-table">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Mot de passe</th>
+                      <th>Service</th>
+                      <th>Profil</th>
+                      <th>Adresses</th>
+                      <th>Commentaire</th>
+                      <th>État</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ppp-tbody"></tbody>
+                </table>
+              </div>
+              <footer class="table-foot">
+                <span id="ppp-summary">0 secret</span>
+              </footer>
+            </article>
+          </section>
+
+          <!-- ---------- SESSIONS PPP ---------- -->
+          <section class="screen" id="screen-ppp-active">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="ppp-secrets">Secrets</button>
+                <button class="toolbar-tab is-active" data-goto="ppp-active">Sessions PPP</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-ghost" id="ppp-active-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="ppp-active-table">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Adresse</th>
+                      <th>Service</th>
+                      <th>Caller ID</th>
+                      <th>Durée</th>
+                      <th>Reçu</th>
+                      <th>Émis</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ppp-active-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="ppp-active-empty" hidden>
+                <svg><use href="#i-ppp"/></svg>
+                <strong>Aucune session PPP active</strong>
+                <span>Les liaisons PPPoE, L2TP, PPTP et SSTP apparaîtront ici.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- INTERFACES ---------- -->
+          <section class="screen" id="screen-interfaces">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs"><button class="toolbar-tab is-active">Toutes les interfaces</button></div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="iface-search" placeholder="Rechercher une interface…" />
+                </div>
+                <button class="btn btn-ghost" id="iface-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="iface-grid" id="iface-grid"></div>
+            <div class="empty-state glass" id="iface-empty" hidden>
+              <svg><use href="#i-plug"/></svg>
+              <strong>Aucune interface</strong>
+              <span>Les interfaces du routeur apparaîtront ici.</span>
+            </div>
+          </section>
+
+          <!-- ---------- PARE-FEU & RÉSEAU ---------- -->
+          <section class="screen" id="screen-firewall">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs fw-tabs" role="tablist" aria-label="Sections pare-feu et réseau">
+                <button class="toolbar-tab is-active" data-fw-tab="filter" role="tab">Filtrage</button>
+                <button class="toolbar-tab" data-fw-tab="nat" role="tab">NAT</button>
+                <button class="toolbar-tab" data-fw-tab="mangle" role="tab">Mangle</button>
+                <button class="toolbar-tab" data-fw-tab="raw" role="tab">Raw</button>
+                <button class="toolbar-tab" data-fw-tab="queues" role="tab">Files d'attente</button>
+                <button class="toolbar-tab" data-fw-tab="vlans" role="tab">VLAN</button>
+                <button class="toolbar-tab" data-fw-tab="routes" role="tab">Routage</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="fw-search" placeholder="Rechercher une règle, une adresse…" />
+                </div>
+                <button class="btn btn-ghost" id="fw-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Éléments affichés</span><strong id="fw-count">0</strong></div>
+              <div class="mini-stat glass"><span>Actifs</span><strong id="fw-active">0</strong></div>
+              <div class="mini-stat glass"><span>Désactivés</span><strong id="fw-disabled">0</strong></div>
+              <div class="mini-stat glass"><span>Trafic cumulé</span><strong id="fw-traffic">—</strong></div>
+            </div>
+
+            <article class="panel glass">
+              <header class="panel-head">
+                <div><h3 id="fw-title">Règles de filtrage</h3><p id="fw-subtitle">Chaîne input et forward du pare-feu</p></div>
+                <span class="chip" id="fw-badge">—</span>
+              </header>
+              <div class="table-wrap" id="fw-table-wrap">
+                <table class="data-table fw-table" id="fw-table">
+                  <thead id="fw-thead"></thead>
+                  <tbody id="fw-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="fw-empty" hidden>
+                <svg><use href="#i-shield"/></svg>
+                <strong>Aucun élément</strong>
+                <span>Cette section est vide sur le routeur.</span>
+              </div>
+              <footer class="table-foot"><span id="fw-foot">—</span></footer>
+            </article>
+          </section>
+
+          <!-- ---------- BAUX DHCP ---------- -->
+          <section class="screen" id="screen-dhcp">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Baux DHCP</button>
+                <button class="toolbar-tab" data-goto="interfaces">Interfaces</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="dhcp-search" placeholder="IP, MAC, nom d'hôte…" />
+                </div>
+                <select class="select" id="dhcp-filter" aria-label="Filtrer les baux">
+                  <option value="">Tous les baux</option>
+                  <option value="dynamic">Dynamiques</option>
+                  <option value="static">Statiques</option>
+                  <option value="bound">Actifs (bound)</option>
+                  <option value="waiting">En attente</option>
+                </select>
+                <button class="btn btn-ghost" id="dhcp-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Baux DHCP</span><strong id="dhcp-count">0</strong></div>
+              <div class="mini-stat glass"><span>Dynamiques</span><strong id="dhcp-dynamic">0</strong></div>
+              <div class="mini-stat glass"><span>Statiques</span><strong id="dhcp-static">0</strong></div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap">
+                <table class="data-table" id="dhcp-table">
+                  <thead>
+                    <tr>
+                      <th>Adresse IP</th>
+                      <th>Adresse MAC</th>
+                      <th>Nom d'hôte</th>
+                      <th>Serveur</th>
+                      <th>Statut</th>
+                      <th>Expiration</th>
+                      <th>Type</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dhcp-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="dhcp-empty" hidden>
+                <svg><use href="#i-link"/></svg>
+                <strong>Aucun bail DHCP</strong>
+                <span>Les adresses distribuées par le serveur DHCP apparaîtront ici.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- MONITEUR DE TRAFIC ---------- -->
+          <section class="screen" id="screen-traffic">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Moniteur de trafic</button>
+                <button class="toolbar-tab" data-goto="interfaces">Interfaces</button>
+              </div>
+              <div class="toolbar-actions">
+                <select class="select" id="monitor-iface" aria-label="Interface surveillée">
+                  <option value="all">Toutes les interfaces</option>
+                </select>
+                <button class="btn btn-ghost" id="monitor-toggle"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Débit descendant</span><strong id="mon-rx">0 o/s</strong></div>
+              <div class="mini-stat glass"><span>Débit montant</span><strong id="mon-tx">0 o/s</strong></div>
+              <div class="mini-stat glass"><span>Volume cumulé</span><strong id="mon-total">0 o</strong></div>
+            </div>
+
+            <article class="panel glass monitor-panel">
+              <header class="panel-head">
+                <div><h3 id="monitor-title">Toutes les interfaces</h3><p>Mesures actualisées en continu</p></div>
+                <div class="panel-legend">
+                  <span class="legend-dot down"></span> Descendant
+                  <span class="legend-dot up"></span> Montant
+                  <span class="chart-range" id="monitor-range">30 s</span>
+                </div>
+              </header>
+              <div class="chart-wrap monitor-chart-wrap">
+                <canvas id="monitor-chart"></canvas>
+                <div class="chart-empty" id="monitor-empty" hidden>Aucune mesure disponible</div>
+              </div>
+            </article>
+
+            <div class="iface-strip" id="monitor-grid"></div>
+          </section>
+
+          <!-- ---------- RAPPORT ---------- -->
+          <section class="screen" id="screen-report">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Rapport d'activité</button>
+                <button class="toolbar-tab" data-goto="logs">Journaux</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-ghost" id="report-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+                <button class="btn btn-primary" id="report-print"><svg><use href="#i-print"/></svg> Imprimer le rapport</button>
+              </div>
+            </div>
+
+            <div class="report-head glass">
+              <div>
+                <span class="eyebrow"><svg><use href="#i-logs"/></svg> Synthèse routeur</span>
+                <h2 id="report-identity">—</h2>
+                <p id="report-generated">Rapport généré le —</p>
+              </div>
+              <div class="report-tags">
+                <span class="tag" id="report-version">RouterOS —</span>
+                <span class="tag" id="report-uptime"><svg><use href="#i-clock"/></svg> —</span>
+                <span class="tag" id="report-host"><svg><use href="#i-router"/></svg> —</span>
+              </div>
+            </div>
+
+            <div class="report-stats">
+              <div class="mini-stat glass"><span>Utilisateurs hotspot</span><strong id="report-users">0</strong></div>
+              <div class="mini-stat glass"><span>Sessions actives</span><strong id="report-active">0</strong></div>
+              <div class="mini-stat glass"><span>Secrets PPP</span><strong id="report-secrets">0</strong></div>
+              <div class="mini-stat glass"><span>Trafic cumulé</span><strong id="report-traffic">0 o</strong></div>
+            </div>
+
+            <div class="report-grid">
+              <article class="panel glass">
+                <header class="panel-head"><div><h3>Top consommateurs hotspot</h3><p>Classés par volume total échangé</p></div></header>
+                <div class="table-wrap">
+                  <table class="data-table" id="report-users-table">
+                    <thead>
+                      <tr><th>Utilisateur</th><th>Profil</th><th>Reçu</th><th>Émis</th><th>Total</th></tr>
+                    </thead>
+                    <tbody id="report-users-tbody"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head"><div><h3>Interfaces</h3><p>État et volumes par interface</p></div></header>
+                <div class="table-wrap">
+                  <table class="data-table" id="report-iface-table">
+                    <thead>
+                      <tr><th>Interface</th><th>État</th><th>Reçu</th><th>Émis</th></tr>
+                    </thead>
+                    <tbody id="report-iface-tbody"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- JOURNAUX ---------- -->
+          <section class="screen" id="screen-logs">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs" id="log-topics">
+                <button class="toolbar-tab is-active" data-topic="">Tous</button>
+                <button class="toolbar-tab" data-topic="hotspot">Hotspot</button>
+                <button class="toolbar-tab" data-topic="ppp">PPP</button>
+                <button class="toolbar-tab" data-topic="system">Système</button>
+                <button class="toolbar-tab" data-topic="interface">Interfaces</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="logs-search" placeholder="Rechercher dans les journaux…" />
+                </div>
+                <button class="btn btn-ghost" id="logs-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+              </div>
+            </div>
+
+            <article class="panel glass logs-panel">
+              <div class="log-list" id="log-list"></div>
+              <div class="empty-state" id="logs-empty" hidden>
+                <svg><use href="#i-logs"/></svg>
+                <strong>Aucun événement</strong>
+                <span>Les journaux du routeur correspondant au filtre apparaîtront ici.</span>
+              </div>
+              <footer class="table-foot"><span id="logs-summary">0 événement</span></footer>
+            </article>
+          </section>
+
+          <!-- ---------- TERMINAL ROUTEROS ---------- -->
+          <section class="screen" id="screen-terminal">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Console RouterOS</button>
+                <button class="toolbar-tab" data-goto="diagnostic">Diagnostic</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-ghost" id="terminal-clear"><svg><use href="#i-trash"/></svg> Effacer la console</button>
+                <button class="btn btn-ghost" id="terminal-history-clear"><svg><use href="#i-close"/></svg> Vider l'historique</button>
+              </div>
+            </div>
+
+            <p class="terminal-warning">
+              <svg><use href="#i-shield"/></svg>
+              <span>Terminal en lecture prioritaire : les commandes <code>print</code> et <code>export</code> s'exécutent directement. Toute commande de modification demande une confirmation explicite et est tracée dans le journal d'audit.</span>
+            </p>
+
+            <div class="terminal-layout">
+              <article class="panel glass terminal-panel">
+                <header class="panel-head">
+                  <div><h3>Terminal</h3><p id="terminal-subtitle">Connecté au routeur</p></div>
+                  <span class="chip" id="terminal-state">Prêt</span>
+                </header>
+
+                <div class="terminal-output" id="terminal-output" role="log" aria-live="polite"></div>
+
+                <form class="terminal-form" id="terminal-form">
+                  <span class="terminal-prompt"><svg><use href="#i-terminal"/></svg></span>
+                  <input class="input terminal-input" id="terminal-input" autocomplete="off" spellcheck="false"
+                    placeholder="/ip hotspot active print" aria-label="Commande RouterOS" />
+                  <button class="btn btn-primary" id="terminal-run"><svg><use href="#i-check"/></svg> Exécuter</button>
+                </form>
+
+                <div class="terminal-suggestions" id="terminal-suggestions">
+                  <span>Exemples :</span>
+                  <button type="button" data-terminal-suggest="/ip hotspot active print">Sessions actives</button>
+                  <button type="button" data-terminal-suggest="/interface print">Interfaces</button>
+                  <button type="button" data-terminal-suggest="/ip firewall filter print">Pare-feu</button>
+                  <button type="button" data-terminal-suggest="/system resource print">Ressources</button>
+                  <button type="button" data-terminal-suggest="/log print">Journaux</button>
+                </div>
+              </article>
+
+              <article class="panel glass terminal-history-panel">
+                <header class="panel-head">
+                  <div><h3>Historique</h3><p>Commandes récentes sur cet ordinateur</p></div>
+                  <span class="chip" id="terminal-history-count">0</span>
+                </header>
+                <div class="terminal-history" id="terminal-history"></div>
+                <div class="empty-state" id="terminal-history-empty">
+                  <svg><use href="#i-clock"/></svg>
+                  <strong>Aucune commande</strong>
+                  <span>Vos commandes récentes apparaîtront ici pour être rejouées rapidement.</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- DIAGNOSTIC RÉSEAU ---------- -->
+          <section class="screen" id="screen-diagnostic">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Diagnostic réseau</button>
+                <button class="toolbar-tab" data-goto="security">Audit sécurité</button>
+              </div>
+              <div class="toolbar-actions">
+                <span class="chip" id="diag-mode">Depuis le routeur</span>
+              </div>
+            </div>
+
+            <div class="diag-grid">
+              <article class="panel glass diag-panel">
+                <header class="panel-head">
+                  <div><h3>Ping</h3><p>Latence et perte de paquets mesurées par le routeur</p></div>
+                  <span class="chip" id="ping-state">Prêt</span>
+                </header>
+                <form class="diag-form" id="ping-form">
+                  <label class="field diag-target">
+                    <span class="field-label">Cible</span>
+                    <input type="text" class="input" id="ping-target" placeholder="8.8.8.8 ou mikrotik.com" spellcheck="false" required />
+                  </label>
+                  <label class="field diag-count">
+                    <span class="field-label">Paquets</span>
+                    <select class="select select-block" id="ping-count">
+                      <option value="4">4</option>
+                      <option value="6">6</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                    </select>
+                  </label>
+                  <button class="btn btn-primary" id="ping-run" type="submit"><svg><use href="#i-spark"/></svg> Lancer</button>
+                </form>
+                <div class="mini-stats diag-stats">
+                  <div class="mini-stat glass"><span>Envoyés</span><strong id="ping-sent">0</strong></div>
+                  <div class="mini-stat glass"><span>Reçus</span><strong id="ping-received">0</strong></div>
+                  <div class="mini-stat glass"><span>Perte</span><strong id="ping-loss">—</strong></div>
+                  <div class="mini-stat glass"><span>Latence moy.</span><strong id="ping-avg">—</strong></div>
+                </div>
+                <div class="table-wrap diag-table-wrap">
+                  <table class="data-table diag-table">
+                    <thead>
+                      <tr><th>#</th><th>Hôte</th><th>Taille</th><th>TTL</th><th>Temps</th><th>Statut</th></tr>
+                    </thead>
+                    <tbody id="ping-tbody"></tbody>
+                  </table>
+                </div>
+                <div class="empty-state" id="ping-empty">
+                  <svg><use href="#i-spark"/></svg>
+                  <strong>Aucun test de ping</strong>
+                  <span>Saisissez une adresse IP ou un nom d'hôte pour tester la connectivité depuis le routeur.</span>
+                </div>
+                <footer class="table-foot"><span id="ping-summary">En attente d'un test</span></footer>
+              </article>
+
+              <article class="panel glass diag-panel">
+                <header class="panel-head">
+                  <div><h3>Traceroute</h3><p>Chemin suivi par les paquets depuis le routeur</p></div>
+                  <span class="chip" id="trace-state">Prêt</span>
+                </header>
+                <form class="diag-form" id="trace-form">
+                  <label class="field diag-target">
+                    <span class="field-label">Cible</span>
+                    <input type="text" class="input" id="trace-target" placeholder="8.8.8.8 ou mikrotik.com" spellcheck="false" required />
+                  </label>
+                  <button class="btn btn-primary" id="trace-run" type="submit"><svg><use href="#i-link"/></svg> Tracer</button>
+                </form>
+                <div class="table-wrap diag-table-wrap">
+                  <table class="data-table diag-table">
+                    <thead>
+                      <tr><th>Saut</th><th>Adresse</th><th>Perte</th><th>Envoyés</th><th>Dernier</th><th>Moyenne</th></tr>
+                    </thead>
+                    <tbody id="trace-tbody"></tbody>
+                  </table>
+                </div>
+                <div class="empty-state" id="trace-empty">
+                  <svg><use href="#i-link"/></svg>
+                  <strong>Aucun traceroute</strong>
+                  <span>Le chemin réseau vers la cible s'affichera ici, saut par saut.</span>
+                </div>
+                <footer class="table-foot"><span id="trace-summary">En attente d'un test</span></footer>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- AUDIT SÉCURITÉ ---------- -->
+          <section class="screen" id="screen-security">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Audit sécurité</button>
+                <button class="toolbar-tab" data-goto="diagnostic">Diagnostic</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-primary" id="security-run"><svg><use href="#i-shield"/></svg> Analyser le routeur</button>
+              </div>
+            </div>
+
+            <div class="security-head glass">
+              <div class="security-score" id="security-score-wrap">
+                <span id="security-score">—</span>
+                <small>score</small>
+              </div>
+              <div class="security-headline">
+                <span class="eyebrow"><svg><use href="#i-shield"/></svg> Configuration RouterOS</span>
+                <h2 id="security-identity">—</h2>
+                <p id="security-summary">Lancez une analyse pour contrôler les comptes, services, pare-feu et sauvegardes du routeur.</p>
+                <div class="security-tags">
+                  <span class="chip ok" id="security-ok">0 conforme</span>
+                  <span class="chip warn" id="security-warn">0 avertissement</span>
+                  <span class="chip danger" id="security-critical">0 critique</span>
+                  <span class="chip" id="security-info">0 information</span>
+                </div>
+              </div>
+              <div class="security-grade">
+                <b id="security-grade">—</b>
+                <span>Note</span>
+              </div>
+            </div>
+
+            <article class="panel glass security-panel">
+              <header class="panel-head">
+                <div><h3>Contrôles de sécurité</h3><p>Lecture seule — aucune modification n'est appliquée au routeur</p></div>
+                <span class="chip" id="security-version">RouterOS —</span>
+              </header>
+              <div class="security-checks" id="security-checks"></div>
+              <div class="empty-state" id="security-empty">
+                <svg><use href="#i-shield"/></svg>
+                <strong>Aucun audit lancé</strong>
+                <span>L'analyse vérifie la version, les comptes administrateurs, les services exposés, le pare-feu, DNS, SNMP et les sauvegardes.</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- ---------- SAUVEGARDES ---------- -->
+          <section class="screen" id="screen-backups">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Instantanés</button>
+                <button class="toolbar-tab" data-goto="audit">Journal d'audit</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="btn btn-ghost" id="backups-import"><svg><use href="#i-restore"/></svg> Importer…</button>
+                <button class="btn btn-ghost" id="backups-download"><svg><use href="#i-download"/></svg> Exporter…</button>
+                <button class="btn btn-primary" id="backups-capture"><svg><use href="#i-save"/></svg> Nouvel instantané</button>
+              </div>
+            </div>
+
+            <div class="backup-grid">
+              <article class="panel glass backup-list-panel">
+                <header class="panel-head">
+                  <div><h3>Instantanés locaux</h3><p id="backups-count">0 instantané</p></div>
+                  <span class="chip" id="backups-mode">—</span>
+                </header>
+                <div class="backup-list" id="backups-list"></div>
+                <div class="empty-state" id="backups-empty">
+                  <svg><use href="#i-save"/></svg>
+                  <strong>Aucun instantané</strong>
+                  <span>Créez un instantané pour archiver la configuration actuelle et la comparer plus tard.</span>
+                </div>
+                <div class="backup-router-box">
+                  <div>
+                    <strong>Sauvegarde binaire</strong>
+                    <span>Crée un fichier .backup dans la mémoire du routeur.</span>
+                  </div>
+                  <button class="btn btn-ghost btn-sm" id="backups-router"><svg><use href="#i-disk"/></svg> Créer</button>
+                </div>
+                <div class="backup-router-result" id="backups-router-result" hidden></div>
+              </article>
+
+              <article class="panel glass diff-panel">
+                <header class="panel-head">
+                  <div><h3>Comparaison</h3><p id="diff-subtitle">Sélectionnez un instantané à gauche</p></div>
+                  <div class="diff-actions">
+                    <span class="chip ok" id="diff-stat-add">+0</span>
+                    <span class="chip danger" id="diff-stat-del">−0</span>
+                    <button class="btn btn-ghost btn-sm" id="diff-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+                  </div>
+                </header>
+                <div class="diff-toolbar">
+                  <span class="diff-legend"><i class="swatch add"></i> lignes ajoutées</span>
+                  <span class="diff-legend"><i class="swatch del"></i> lignes supprimées</span>
+                  <label class="diff-against">Comparé à
+                    <select class="select" id="diff-compare"></select>
+                  </label>
+                </div>
+                <div class="diff-view" id="diff-view">
+                  <div class="empty-state" id="diff-empty">
+                    <svg><use href="#i-restore"/></svg>
+                    <strong>Aucune comparaison</strong>
+                    <span>Choisissez un instantané puis cliquez sur « Comparer » pour voir les différences avec la configuration actuelle.</span>
+                  </div>
+                </div>
+                <footer class="diff-foot">
+                  <span id="diff-summary">—</span>
+                  <div class="diff-foot-actions">
+                    <button class="btn btn-ghost btn-sm" id="diff-download" disabled><svg><use href="#i-download"/></svg> Télécharger</button>
+                    <button class="btn btn-danger btn-sm" id="diff-restore" disabled><svg><use href="#i-restore"/></svg> Restaurer</button>
+                  </div>
+                </footer>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- JOURNAL D'AUDIT ---------- -->
+          <section class="screen" id="screen-audit">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab" data-goto="backups">Instantanés</button>
+                <button class="toolbar-tab is-active">Journal d'audit</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="audit-search" placeholder="Action, cible, routeur…" />
+                </div>
+                <select class="select" id="audit-status" aria-label="Filtrer par statut">
+                  <option value="">Toutes les actions</option>
+                  <option value="ok">Réussies</option>
+                  <option value="error">Échouées</option>
+                </select>
+                <button class="btn btn-ghost" id="audit-export"><svg><use href="#i-download"/></svg> Exporter</button>
+                <button class="btn btn-ghost" id="audit-clear"><svg><use href="#i-trash"/></svg> Vider</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Actions enregistrées</span><strong id="audit-total">0</strong></div>
+              <div class="mini-stat glass"><span>Réussies</span><strong id="audit-ok">0</strong></div>
+              <div class="mini-stat glass"><span>Échecs</span><strong id="audit-errors">0</strong></div>
+              <div class="mini-stat glass"><span>Dernière action</span><strong id="audit-last">—</strong></div>
+            </div>
+
+            <article class="panel glass">
+              <div class="table-wrap" id="audit-table-wrap">
+                <table class="data-table audit-table">
+                  <thead>
+                    <tr><th>Date</th><th>Action</th><th>Cible</th><th>Routeur</th><th>Statut</th><th>Détail</th></tr>
+                  </thead>
+                  <tbody id="audit-tbody"></tbody>
+                </table>
+              </div>
+              <div class="empty-state" id="audit-empty">
+                <svg><use href="#i-logs"/></svg>
+                <strong>Journal vide</strong>
+                <span>Les créations, modifications, suppressions et actions sensibles effectuées dans MikroDesk seront consignées ici.</span>
+              </div>
+              <footer class="table-foot"><span id="audit-foot">—</span></footer>
+            </article>
+          </section>
+
+          <!-- ---------- PARC ROUTEURS ---------- -->
+          <section class="screen" id="screen-fleet">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs" role="tablist" aria-label="Parc de routeurs">
+                <button class="toolbar-tab is-active">Tous les routeurs</button>
+              </div>
+              <div class="toolbar-actions">
+                <div class="search-box">
+                  <svg><use href="#i-search"/></svg>
+                  <input type="search" id="fleet-search" placeholder="Rechercher un routeur…" />
+                </div>
+                <button class="btn btn-ghost" id="fleet-add"><svg><use href="#i-plus"/></svg> Ajouter</button>
+                <button class="btn btn-ghost" id="fleet-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+                <button class="btn btn-primary" id="fleet-probe-all"><svg><use href="#i-shield"/></svg> Tout tester</button>
+              </div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat glass"><span>Routeurs enregistrés</span><strong id="fleet-total">0</strong></div>
+              <div class="mini-stat glass"><span>En ligne</span><strong id="fleet-online">0</strong></div>
+              <div class="mini-stat glass"><span>Hors ligne</span><strong id="fleet-offline">0</strong></div>
+              <div class="mini-stat glass"><span>Non testés</span><strong id="fleet-unknown">0</strong></div>
+            </div>
+
+            <div class="fleet-grid" id="fleet-grid"></div>
+
+            <div class="empty-state glass" id="fleet-empty" hidden>
+              <svg><use href="#i-router"/></svg>
+              <strong>Aucun routeur dans le parc</strong>
+              <span>Enregistrez un ou plusieurs routeurs depuis l'écran de connexion pour les superviser ici.</span>
+              <button class="btn btn-primary" id="fleet-empty-add"><svg><use href="#i-plus"/></svg> Ajouter un routeur</button>
+            </div>
+
+            <article class="panel glass fleet-compare" id="fleet-compare">
+              <header class="panel-head">
+                <div><h3>Comparaison</h3><p id="fleet-compare-subtitle">Cochez deux routeurs pour comparer leurs indicateurs.</p></div>
+                <button class="btn btn-ghost btn-sm" id="fleet-compare-clear" hidden><svg><use href="#i-close"/></svg> Effacer</button>
+              </header>
+              <div class="fleet-compare-body" id="fleet-compare-body"></div>
+            </article>
+          </section>
+
+          <!-- ---------- ALERTES ---------- -->
+          <section class="screen" id="screen-alerts">
+            <div class="screen-toolbar">
+              <div class="toolbar-tabs">
+                <button class="toolbar-tab is-active">Historique</button>
+                <button class="toolbar-tab" data-goto="audit">Journal d'audit</button>
+              </div>
+              <div class="toolbar-actions">
+                <select class="select" id="alerts-filter" aria-label="Filtrer par gravité">
+                  <option value="">Toutes les gravités</option>
+                  <option value="critical">Critiques</option>
+                  <option value="warn">Avertissements</option>
+                  <option value="info">Informations</option>
+                </select>
+                <button class="btn btn-ghost" id="alerts-refresh"><svg><use href="#i-refresh"/></svg> Actualiser</button>
+                <button class="btn btn-ghost" id="alerts-clear"><svg><use href="#i-trash"/></svg> Vider</button>
+              </div>
+            </div>
+
+            <div class="alert-grid">
+              <article class="panel glass alerts-panel">
+                <header class="panel-head">
+                  <div><h3>Alertes enregistrées</h3><p id="alerts-subtitle">Surveillance locale du routeur</p></div>
+                  <span class="chip" id="alerts-count">0</span>
+                </header>
+                <div class="alert-list" id="alerts-list"></div>
+                <div class="empty-state" id="alerts-empty">
+                  <svg><use href="#i-bell"/></svg>
+                  <strong>Aucune alerte</strong>
+                  <span>Les dépassements de seuil et incidents détectés pendant la supervision apparaîtront ici.</span>
+                </div>
+                <footer class="table-foot"><span id="alerts-foot">—</span></footer>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head">
+                  <div><h3>Règles de surveillance</h3><p>Seuils appliqués à chaque actualisation</p></div>
+                  <span class="switch" title="Activer la surveillance">
+                    <input type="checkbox" id="alert-enabled" />
+                    <span class="switch-track"></span>
+                  </span>
+                </header>
+                <div class="alert-rules">
+                  <label class="alert-rule">
+                    <span><strong>Charge CPU</strong><em>Seuil en pourcentage</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-cpu" min="50" max="100" step="1" /><span>%</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Mémoire vive</strong><em>Seuil en pourcentage</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-memory" min="50" max="100" step="1" /><span>%</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Stockage interne</strong><em>Seuil en pourcentage</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-disk" min="50" max="100" step="1" /><span>%</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Température</strong><em>Seuil en degrés Celsius</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-temperature" min="30" max="120" step="1" /><span>°C</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Perte de paquets</strong><em>Résultat du dernier ping</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-packetloss" min="1" max="100" step="1" /><span>%</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Expiration hotspot</strong><em>Préavis avant fin de session</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-hotspot" min="1" max="120" step="1" /><span>min</span></div>
+                  </label>
+                  <label class="alert-rule">
+                    <span><strong>Anti-répétition</strong><em>Délai entre deux alertes identiques</em></span>
+                    <div class="alert-input"><input class="input" type="number" id="alert-cooldown" min="1" max="120" step="1" /><span>min</span></div>
+                  </label>
+                  <label class="alert-rule alert-rule-switch">
+                    <span><strong>Notification système</strong><em>Afficher aussi une notification Windows</em></span>
+                    <span class="switch">
+                      <input type="checkbox" id="alert-desktop" />
+                      <span class="switch-track"></span>
+                    </span>
+                  </label>
+                </div>
+                <footer class="panel-footer-actions">
+                  <button class="btn btn-primary" id="alerts-save"><svg><use href="#i-save"/></svg> Enregistrer les seuils</button>
+                </footer>
+              </article>
+            </div>
+          </section>
+
+          <!-- ---------- PARAMÈTRES ---------- -->
+          <section class="screen" id="screen-settings">
+            <div class="settings-grid">
+              <article class="panel glass">
+                <header class="panel-head"><div><h3>Connexion</h3><p>Routeur actuellement administré</p></div></header>
+                <dl class="kv-list">
+                  <div><dt>Mode</dt><dd id="set-mode">—</dd></div>
+                  <div><dt>Identité</dt><dd id="set-identity">—</dd></div>
+                  <div><dt>Adresse</dt><dd id="set-host">—</dd></div>
+                  <div><dt>Utilisateur</dt><dd id="set-user">—</dd></div>
+                  <div><dt>Port / SSL</dt><dd id="set-port">—</dd></div>
+                  <div><dt>Version RouterOS</dt><dd id="set-version">—</dd></div>
+                  <div><dt>Connecté depuis</dt><dd id="set-since">—</dd></div>
+                </dl>
+                <div class="panel-footer-actions">
+                  <button class="btn btn-ghost" id="settings-disconnect"><svg><use href="#i-power"/></svg> Se déconnecter</button>
+                </div>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head"><div><h3>Préférences</h3><p>Apparence et supervision</p></div></header>
+                <div class="setting-row">
+                  <div><strong>Intervalle d'actualisation</strong><span>Fréquence de lecture des compteurs</span></div>
+                  <select class="select" id="set-poll">
+                    <option value="1500">1,5 seconde</option>
+                    <option value="3000">3 secondes</option>
+                    <option value="5000">5 secondes</option>
+                    <option value="10000">10 secondes</option>
+                  </select>
+                </div>
+                <div class="setting-row setting-row-col">
+                  <div><strong>Thème de l'interface</strong><span>Apparence claire ou sombre de la console</span></div>
+                  <div class="segmented theme-segmented" id="theme-row" role="group" aria-label="Thème de l'interface">
+                    <button type="button" class="segmented-item is-active" data-theme-choice="dark" aria-pressed="true">
+                      <svg><use href="#i-theme-dark"/></svg> Sombre
+                    </button>
+                    <button type="button" class="segmented-item" data-theme-choice="light" aria-pressed="false">
+                      <svg><use href="#i-theme-light"/></svg> Clair
+                    </button>
+                  </div>
+                </div>
+                <div class="setting-row setting-row-col">
+                  <div><strong>Accent de l'interface</strong><span>Couleur principale des éléments actifs</span></div>
+                  <div class="accent-row" id="accent-row">
+                    <button class="accent-swatch" data-accent="cyan" style="--swatch:#22d3ee" aria-label="Cyan"></button>
+                    <button class="accent-swatch" data-accent="violet" style="--swatch:#a78bfa" aria-label="Violet"></button>
+                    <button class="accent-swatch" data-accent="emerald" style="--swatch:#34d399" aria-label="Émeraude"></button>
+                    <button class="accent-swatch" data-accent="amber" style="--swatch:#fbbf24" aria-label="Ambre"></button>
+                    <button class="accent-swatch" data-accent="rose" style="--swatch:#fb7185" aria-label="Rose"></button>
+                  </div>
+                </div>
+                <div class="setting-row">
+                  <div><strong>Coffre de chiffrement</strong><span>Protection des mots de passe enregistrés</span></div>
+                  <span class="chip" id="set-encryption">—</span>
+                </div>
+              </article>
+
+              <article class="panel glass span-2">
+                <header class="panel-head">
+                  <div><h3>Routeurs enregistrés</h3><p>Profils de connexion et identifiants chiffrés</p></div>
+                  <button class="btn btn-ghost btn-sm" id="settings-add-profile"><svg><use href="#i-plus"/></svg> Ajouter</button>
+                </header>
+                <div class="saved-list" id="saved-profiles"></div>
+              </article>
+
+              <article class="panel glass danger-panel">
+                <header class="panel-head"><div><h3>Zone sensible</h3><p>Actions irréversibles sur le routeur</p></div></header>
+                <div class="danger-row">
+                  <div><strong>Redémarrer le routeur</strong><span>Coupe toutes les connexions pendant le redémarrage.</span></div>
+                  <button class="btn btn-danger" id="settings-reboot"><svg><use href="#i-power"/></svg> Redémarrer</button>
+                </div>
+              </article>
+
+              <article class="panel glass">
+                <header class="panel-head"><div><h3>À propos</h3><p>MikroDesk</p></div></header>
+                <div class="about-block">
+                  <div class="about-logo"><svg viewBox="0 0 32 32"><path d="M16 3 29 10.5v11L16 29 3 21.5v-11Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="16" r="4" fill="currentColor"/></svg></div>
+                  <div><strong>MikroDesk <span id="about-version">1.1.0</span></strong><span>Console de gestion MikroTik</span></div>
+                </div>
+                <dl class="kv-list compact">
+                  <div><dt>Electron</dt><dd id="about-electron">—</dd></div>
+                  <div><dt>Chromium</dt><dd id="about-chrome">—</dd></div>
+                  <div><dt>Node.js</dt><dd id="about-node">—</dd></div>
+                  <div><dt>Plateforme</dt><dd id="about-platform">—</dd></div>
+                  <div><dt>Données</dt><dd id="about-data" class="ellipsis">—</dd></div>
+                </dl>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== MODALES ====================== -->
+    <div class="modal-layer" id="modal-layer" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+
+      <!-- Utilisateur hotspot -->
+      <div class="modal" id="modal-user" role="dialog" aria-modal="true" aria-labelledby="modal-user-title" hidden>
+        <header class="modal-head">
+          <div><h2 id="modal-user-title">Nouvel utilisateur</h2><p>Accès hotspot RouterOS</p></div>
+          <button class="icon-btn" data-close-modal aria-label="Fermer"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <form id="user-form">
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field"><span class="field-label">Nom d'utilisateur *</span><input type="text" class="input" id="u-name" required spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Mot de passe</span><input type="text" class="input" id="u-password" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Profil</span><select class="select select-block" id="u-profile"></select></label>
+              <label class="field"><span class="field-label">Serveur</span><select class="select select-block" id="u-server"></select></label>
+              <label class="field"><span class="field-label">Limite de temps</span><input type="text" class="input" id="u-uptime" placeholder="ex. 1d, 12h, 0" value="0" /></label>
+              <label class="field"><span class="field-label">Limite de données</span><input type="text" class="input" id="u-bytes" placeholder="ex. 1G, 500M, 0" value="0" /></label>
+              <label class="field field-full"><span class="field-label">Commentaire</span><input type="text" class="input" id="u-comment" placeholder="Poste, client, référence…" /></label>
+            </div>
+            <label class="switch-row switch-row-box">
+              <span class="switch"><input type="checkbox" id="u-disabled" /><span class="switch-track"></span></span>
+              <span><strong>Compte désactivé</strong><span class="switch-text">L'utilisateur ne pourra pas se connecter.</span></span>
+            </label>
+            <div class="form-error" id="user-error" hidden></div>
+          </div>
+          <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close-modal>Annuler</button>
+            <button type="submit" class="btn btn-primary" id="user-save"><span class="btn-spinner"></span><svg class="btn-ico"><use href="#i-save"/></svg><span class="btn-label">Enregistrer</span></button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- Génération d'utilisateurs -->
+      <div class="modal" id="modal-generate" role="dialog" aria-modal="true" aria-labelledby="modal-generate-title" hidden>
+        <header class="modal-head">
+          <div><h2 id="modal-generate-title">Générer des utilisateurs</h2><p>Création séquentielle par lot</p></div>
+          <button class="icon-btn" data-close-modal aria-label="Fermer"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <form id="generate-form">
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field"><span class="field-label">Préfixe</span><input type="text" class="input" id="g-prefix" value="vti-" maxlength="12" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Nombre</span><input type="number" class="input" id="g-count" value="10" min="1" max="200" /></label>
+              <label class="field"><span class="field-label">Numéro de départ</span><input type="number" class="input" id="g-start" value="1" min="1" /></label>
+              <label class="field"><span class="field-label">Chiffres du numéro</span><input type="number" class="input" id="g-padding" value="2" min="1" max="4" /></label>
+              <label class="field">
+                <span class="field-label">Mot de passe</span>
+                <select class="select select-block" id="g-password-mode">
+                  <option value="random">Aléatoire (4 chiffres)</option>
+                  <option value="name">Identique au nom</option>
+                  <option value="same">Mot de passe commun</option>
+                </select>
+              </label>
+              <label class="field"><span class="field-label">Mot de passe commun</span><input type="text" class="input" id="g-password" placeholder="Si mode commun" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Profil</span><select class="select select-block" id="g-profile"></select></label>
+              <label class="field"><span class="field-label">Limite de temps</span><input type="text" class="input" id="g-uptime" value="0" /></label>
+              <label class="field"><span class="field-label">Limite de données</span><input type="text" class="input" id="g-bytes" value="0" /></label>
+              <label class="field"><span class="field-label">Commentaire</span><input type="text" class="input" id="g-comment" value="Génération MikroDesk" /></label>
+            </div>
+            <div class="form-error" id="generate-error" hidden></div>
+          </div>
+          <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close-modal>Annuler</button>
+            <button type="submit" class="btn btn-primary" id="generate-save"><span class="btn-spinner"></span><svg class="btn-ico"><use href="#i-spark"/></svg><span class="btn-label">Générer</span></button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- Liaison IP hotspot -->
+      <div class="modal" id="modal-binding" role="dialog" aria-modal="true" aria-labelledby="modal-binding-title" hidden>
+        <header class="modal-head">
+          <div><h2 id="modal-binding-title">Nouvelle liaison IP</h2><p>Contrôle d'accès par adresse MAC</p></div>
+          <button class="icon-btn" data-close-modal aria-label="Fermer"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <form id="binding-form">
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field"><span class="field-label">Adresse MAC *</span><input type="text" class="input" id="b-mac" placeholder="AA:BB:CC:DD:EE:FF" required spellcheck="false" /></label>
+              <label class="field">
+                <span class="field-label">Type</span>
+                <select class="select select-block" id="b-type">
+                  <option value="regular">Normal (regular)</option>
+                  <option value="bypassed">Contourné (bypassed)</option>
+                  <option value="blocked">Bloqué (blocked)</option>
+                </select>
+              </label>
+              <label class="field"><span class="field-label">Adresse IP</span><input type="text" class="input" id="b-address" placeholder="10.5.50.120" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Rediriger vers</span><input type="text" class="input" id="b-to-address" placeholder="10.5.50.10" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Serveur</span><select class="select select-block" id="b-server"></select></label>
+              <label class="field"><span class="field-label">Commentaire</span><input type="text" class="input" id="b-comment" /></label>
+            </div>
+            <label class="switch-row switch-row-box">
+              <span class="switch"><input type="checkbox" id="b-disabled" /><span class="switch-track"></span></span>
+              <span><strong>Liaison désactivée</strong><span class="switch-text">La règle est conservée mais n'est pas appliquée.</span></span>
+            </label>
+            <div class="form-error" id="binding-error" hidden></div>
+          </div>
+          <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close-modal>Annuler</button>
+            <button type="submit" class="btn btn-primary" id="binding-save"><span class="btn-spinner"></span><svg class="btn-ico"><use href="#i-save"/></svg><span class="btn-label">Enregistrer</span></button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- Secret PPP -->
+      <div class="modal" id="modal-ppp" role="dialog" aria-modal="true" aria-labelledby="modal-ppp-title" hidden>
+        <header class="modal-head">
+          <div><h2 id="modal-ppp-title">Nouveau secret PPP</h2><p>Authentification PPPoE / L2TP / PPTP / SSTP</p></div>
+          <button class="icon-btn" data-close-modal aria-label="Fermer"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <form id="ppp-form">
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field"><span class="field-label">Nom *</span><input type="text" class="input" id="p-name" required spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Mot de passe</span><input type="text" class="input" id="p-password" spellcheck="false" /></label>
+              <label class="field">
+                <span class="field-label">Service</span>
+                <select class="select select-block" id="p-service">
+                  <option value="any">Tous</option>
+                  <option value="pppoe">PPPoE</option>
+                  <option value="l2tp">L2TP</option>
+                  <option value="pptp">PPTP</option>
+                  <option value="sstp">SSTP</option>
+                  <option value="ovpn">OpenVPN</option>
+                </select>
+              </label>
+              <label class="field"><span class="field-label">Profil PPP</span><select class="select select-block" id="p-profile"></select></label>
+              <label class="field"><span class="field-label">Adresse locale</span><input type="text" class="input" id="p-local" placeholder="10.10.0.1" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Adresse distante</span><input type="text" class="input" id="p-remote" placeholder="10.10.0.10" spellcheck="false" /></label>
+              <label class="field field-full"><span class="field-label">Commentaire</span><input type="text" class="input" id="p-comment" /></label>
+            </div>
+            <label class="switch-row switch-row-box">
+              <span class="switch"><input type="checkbox" id="p-disabled" /><span class="switch-track"></span></span>
+              <span><strong>Secret désactivé</strong><span class="switch-text">Aucune connexion ne sera acceptée.</span></span>
+            </label>
+            <div class="form-error" id="ppp-error" hidden></div>
+          </div>
+          <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close-modal>Annuler</button>
+            <button type="submit" class="btn btn-primary" id="ppp-save"><span class="btn-spinner"></span><svg class="btn-ico"><use href="#i-save"/></svg><span class="btn-label">Enregistrer</span></button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- Profil de connexion -->
+      <div class="modal" id="modal-profile" role="dialog" aria-modal="true" aria-labelledby="modal-profile-title" hidden>
+        <header class="modal-head">
+          <div><h2 id="modal-profile-title">Routeur enregistré</h2><p>Profil de connexion local</p></div>
+          <button class="icon-btn" data-close-modal aria-label="Fermer"><svg><use href="#i-close"/></svg></button>
+        </header>
+        <form id="profile-form">
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field field-full"><span class="field-label">Nom du profil</span><input type="text" class="input" id="pr-name" placeholder="Bureau principal" /></label>
+              <label class="field"><span class="field-label">Adresse *</span><input type="text" class="input" id="pr-host" required spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Port</span><input type="number" class="input" id="pr-port" value="8728" min="1" max="65535" /></label>
+              <label class="field"><span class="field-label">Utilisateur</span><input type="text" class="input" id="pr-username" spellcheck="false" /></label>
+              <label class="field"><span class="field-label">Mot de passe</span><input type="password" class="input" id="pr-password" placeholder="Laisser vide pour conserver" /></label>
+            </div>
+            <label class="switch-row switch-row-box">
+              <span class="switch"><input type="checkbox" id="pr-tls" /><span class="switch-track"></span></span>
+              <span><strong>Connexion API SSL</strong><span class="switch-text">Utilise le port 8729 avec chiffrement TLS.</span></span>
+            </label>
+            <div class="form-error" id="profile-error" hidden></div>
+          </div>
+          <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-close-modal>Annuler</button>
+            <button type="submit" class="btn btn-primary" id="profile-save"><span class="btn-spinner"></span><svg class="btn-ico"><use href="#i-save"/></svg><span class="btn-label">Enregistrer</span></button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="modal modal-sm" id="modal-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-title" hidden>
+        <div class="confirm-icon" id="confirm-icon"><svg><use href="#i-alert"/></svg></div>
+        <h2 id="confirm-title">Confirmer l'action</h2>
+        <p id="confirm-text">Cette action est irréversible.</p>
+        <div class="confirm-actions">
+          <button class="btn btn-ghost" data-close-modal>Annuler</button>
+          <button class="btn btn-danger" id="confirm-ok">Confirmer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feuille d'impression des vouchers -->
+    <div class="print-sheet" id="print-sheet" aria-hidden="true"></div>
+
+    <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+    <script src="../src/validate.js"></script>
+    <script src="../src/diff.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
